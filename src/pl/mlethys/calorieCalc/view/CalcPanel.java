@@ -43,7 +43,7 @@ public class CalcPanel extends JPanel
         setLayout(new BorderLayout());
         UIManager.put("TabbedPane.contentOpaque", false);
         TABBED_PANE = new JTabbedPane();
-        toolBar = new ToolBar();
+        toolBar = new ToolBar(parent);
         add(toolBar, BorderLayout.PAGE_START);
         createMenuBar();
         add(TABBED_PANE);
