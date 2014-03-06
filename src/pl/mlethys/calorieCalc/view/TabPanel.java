@@ -28,7 +28,7 @@ public class TabPanel extends JPanel
         setBackground(new Color(0, 0, 0, 255));
         productsPanel = new JPanel();
         productsPanel.setOpaque(false);
-        productsPanel.setBackground(new Color(255, 255, 255, 100));
+        productsPanel.setBackground(new Color(255, 255, 255, 200));
         productsPanel.setLayout(new BoxLayout(productsPanel, BoxLayout.Y_AXIS));
         summaryButtonPanel = new JPanel();
         summaryButtonPanel.setLayout(new BorderLayout());

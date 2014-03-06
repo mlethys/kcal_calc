@@ -28,7 +28,7 @@ public class MenuAdd extends JMenu implements Menu, ActionListener
 {
     private final JMenuItem NEW_MEAL;
     private final JMenuItem NEW_FOOD;
-    private JTabbedPane tabbedPane;
+    private TabbedPanel tabbedPane;
     private final String TAB_TITLE;
     private final ArrayList<TabPanel> TAB_PANELS;
     
@@ -60,7 +60,7 @@ public class MenuAdd extends JMenu implements Menu, ActionListener
      * Method creates button for tab in tabbed panel
      * @param title
      * @return 
-     */
+     *
     private JButton createTabButton(final String title)
     {
         JButton button = new JButton("x");
@@ -71,7 +71,7 @@ public class MenuAdd extends JMenu implements Menu, ActionListener
             /**
              * Method handles actions performed on button
              * @param e ActionEvent object
-             */
+             *
             @Override
             public void actionPerformed(ActionEvent e)
             {
@@ -81,7 +81,7 @@ public class MenuAdd extends JMenu implements Menu, ActionListener
             }
         });
         return button;
-    }
+    }*/
     
     private JButton createSummaryButton()
     {
@@ -96,7 +96,7 @@ public class MenuAdd extends JMenu implements Menu, ActionListener
                 CalculatedMeal meal = new CalculatedMeal();
                 try
                 {
-                    meal.calculateMeal(TAB_PANELS.get(tabbedPane.getSelectedIndex()).getProducts());
+                    meal.calculateMeal(tabbedPane.getTabPanels().get(tabbedPane.getSelectedIndex()).getProducts());
                     JOptionPane.showMessageDialog(tabbedPane, "Kcal: " + meal.getKcal() + "\n"
                                                                 + "Proteins: " + meal.getProteins() + "\n"
                                                                 + "Fats: " + meal.getFats() + "\n"
@@ -121,25 +121,44 @@ public class MenuAdd extends JMenu implements Menu, ActionListener
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                TAB_PANELS.get(tabbedPane.getSelectedIndex()).setCounter(TAB_PANELS.get(tabbedPane.getSelectedIndex()).getCounter() - 1);
+                tabbedPane
+                    .getTabPanels()
+                    .get(tabbedPane.getSelectedIndex())
+                    .setCounter(tabbedPane.getTabPanels().get(tabbedPane.getSelectedIndex())
+                    .getCounter() - 1);
                 product.removeAll();
-                TAB_PANELS.get(tabbedPane.getSelectedIndex()).getProducts().remove(TAB_PANELS.get(tabbedPane.getSelectedIndex()).getProducts().size() - 1);
+                tabbedPane
+                    .getTabPanels()
+                    .get(tabbedPane.getSelectedIndex())
+                    .getProducts()
+                    .remove(tabbedPane.getTabPanels().get(tabbedPane.getSelectedIndex()).getProducts().size() - 1);
+                tabbedPane.repaint();
             }
         });
         return button;
     }
     
     
-    /**
-     * Methods creates copy of tabbed panel
-     * @param tabbedPane JTabbedPane object
-     */
-    public void setTabbedPanel(JTabbedPane tabbedPane)
+    public void setTabbedPanel(TabbedPanel tabbedPane)
     {
         this.tabbedPane = tabbedPane;
         
     }
-
+    
+    private void addMeal()
+    {
+        String tabTitle = tabbedPane.getTabTitle() + " " + tabbedPane.getTabCount();
+        JLabel titleLabel = new JLabel(tabTitle); 
+        JPanel titlePanel = new JPanel();
+        TabPanel tabPanel = new TabPanel();
+        titlePanel.add(titleLabel);
+        titlePanel.add(tabbedPane.createTabButton(tabTitle));
+        tabbedPane.addTab(tabTitle, tabPanel);
+        tabPanel.getSummaryButtonPanel().add(createSummaryButton());
+        tabbedPane.setTabComponentAt(tabbedPane.getTabCount() - 1, titlePanel);
+        tabbedPane.getTabPanels().add(tabPanel);       
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e)
     {
@@ -147,16 +166,7 @@ public class MenuAdd extends JMenu implements Menu, ActionListener
         
         if (source == NEW_MEAL )
         {
-            String tabTitle2 = TAB_TITLE + " " + tabbedPane.getTabCount();
-            JLabel titleLabel = new JLabel(tabTitle2);
-            TabPanel tabPanel = new TabPanel();
-            JPanel titlePanel = new JPanel();
-            titlePanel.add(titleLabel);
-            titlePanel.add(createTabButton(tabTitle2));
-            tabbedPane.addTab(tabTitle2, tabPanel); 
-            tabPanel.getSummaryButtonPanel().add(createSummaryButton());
-            tabbedPane.setTabComponentAt(tabbedPane.getTabCount() - 1, titlePanel);
-            TAB_PANELS.add(tabPanel);
+           addMeal();
         }
         else if (source == NEW_FOOD)
         {
@@ -167,13 +177,24 @@ public class MenuAdd extends JMenu implements Menu, ActionListener
             }
             else
             {
-                if(TAB_PANELS.get(tabbedPane.getSelectedIndex()).getCounter() < MAX_PRODUCTS)
+                if(tabbedPane.getTabPanels().get(tabbedPane.getSelectedIndex()).getCounter() < MAX_PRODUCTS)
                 {
-                    TabPanel tmp = TAB_PANELS.get(tabbedPane.getSelectedIndex());
+                    TabPanel tmp = tabbedPane
+                        .getTabPanels()
+                        .get(tabbedPane.getSelectedIndex());
                     tmp.getProducts().add(new TabBody());
-                    tmp.getProducts().get(tmp.getProducts().size() - 1).addComponent(createProductButton(tmp.getProducts().get(tmp.getProducts().size() - 1)));
-                    TAB_PANELS.get(tabbedPane.getSelectedIndex()).getProductsPanel().add(tmp.getProducts().get(tmp.getProducts().size() - 1));
-                    TAB_PANELS.get(tabbedPane.getSelectedIndex()).setCounter(TAB_PANELS.get(tabbedPane.getSelectedIndex()).getCounter() + 1);
+                    tmp.getProducts()
+                        .get(tmp.getProducts().size() - 1)
+                        .addComponent(createProductButton(tmp.getProducts().get(tmp.getProducts().size() - 1)));
+                    tabbedPane
+                        .getTabPanels()
+                        .get(tabbedPane.getSelectedIndex())
+                        .getProductsPanel()
+                        .add(tmp.getProducts().get(tmp.getProducts().size() - 1));
+                    tabbedPane
+                        .getTabPanels()
+                        .get(tabbedPane.getSelectedIndex())
+                        .setCounter(tabbedPane.getTabPanels().get(tabbedPane.getSelectedIndex()).getCounter() + 1); 
                 }
                 else
                 {

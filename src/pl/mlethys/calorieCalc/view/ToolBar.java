@@ -16,7 +16,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
-import javax.swing.UIManager;
 
 /**
  * 
@@ -52,8 +51,10 @@ public class ToolBar extends JPanel implements ActionListener
         {
             Image img = ImageIO.read(getClass().getResource("new_meal_icon.png"));
             newMealButton.setIcon(new ImageIcon(img));
+            
             img = ImageIO.read(getClass().getResource("new_food_icon.png"));
             newFoodButton.setIcon(new ImageIcon(img));
+           
             img = ImageIO.read(getClass().getResource("jump_to_icon.png"));
             jumpToStartButton.setIcon(new ImageIcon(img));
         } 
@@ -83,7 +84,9 @@ public class ToolBar extends JPanel implements ActionListener
             PARENT.add(new MainPanel(PARENT));
             PARENT.setVisible(true);
         }
-    }
-    
-    
+        else if(source == newMealButton)
+        {
+          
+        }
+    }   
 }

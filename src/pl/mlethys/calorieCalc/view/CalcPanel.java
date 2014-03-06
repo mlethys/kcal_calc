@@ -28,7 +28,8 @@ public class CalcPanel extends JPanel
     private final int WIDTH = 800;
     private final int HEIGHT = 600;
     private JMenuBar menuBar;
-    private final JTabbedPane TABBED_PANE;
+ //   private final JTabbedPane TABBED_PANE;
+    private TabbedPanel TABBED_PANE;
     private MenuAdd menuAdd;
     private final JFrame PARENT;
     private ToolBar toolBar;
@@ -42,7 +43,7 @@ public class CalcPanel extends JPanel
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setLayout(new BorderLayout());
         UIManager.put("TabbedPane.contentOpaque", false);
-        TABBED_PANE = new JTabbedPane();
+        TABBED_PANE = new TabbedPanel();
         toolBar = new ToolBar(parent);
         add(toolBar, BorderLayout.PAGE_START);
         createMenuBar();
