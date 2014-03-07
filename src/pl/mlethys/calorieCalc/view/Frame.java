@@ -22,7 +22,7 @@ public class Frame extends JFrame
      */
     public Frame()
     {
-        super("Calorie Calculator 0.2.0 beta");
+        super("Calorie Calculator 0.3.0 beta");
         PANEL = new MainPanel(this);
         add(PANEL);
         pack();

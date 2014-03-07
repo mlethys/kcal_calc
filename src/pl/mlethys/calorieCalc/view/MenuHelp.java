@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 /**
  * 
  * @author mlethys
- * @version beta 0.1.0
  */
 public class MenuHelp extends JMenu implements Menu
 {
@@ -43,7 +42,7 @@ public class MenuHelp extends JMenu implements Menu
             {
                  JOptionPane.showMessageDialog(ABOUT, "This application will help you keep your diet.\n"
                                                     + "It's based on Freeware license.\n"
-                                                    + "Product version: Calorie Calculator beta 0.2.0");
+                                                    + "Product version: Calorie Calculator beta 0.3.0");
             }
         });
         CREDITS = new JMenuItem("Credits");
