@@ -4,14 +4,12 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 import pl.mlethys.calorieCalc.model.CalculatedMeal;
 import pl.mlethys.calorieCalc.model.NoProductsException;
 
@@ -24,13 +22,11 @@ import pl.mlethys.calorieCalc.model.NoProductsException;
  * 
  * Class for submenu in menu bar
  */
-public class MenuAdd extends JMenu implements Menu, ActionListener
+public class MenuAdd extends JMenu implements Menu, ActionListener, MenuFeatures
 {
     private final JMenuItem NEW_MEAL;
     private final JMenuItem NEW_FOOD;
     private TabbedPanel tabbedPane;
-    private final String TAB_TITLE;
-    private final ArrayList<TabPanel> TAB_PANELS;
     
     private final int MAX_PRODUCTS = 8;
     /**
@@ -43,8 +39,6 @@ public class MenuAdd extends JMenu implements Menu, ActionListener
         NEW_FOOD = new JMenuItem("New product");
         NEW_MEAL.addActionListener(this);
         NEW_FOOD.addActionListener(this);
-        TAB_PANELS = new ArrayList<>();
-        TAB_TITLE = "Meal";
     }
 
     /**
@@ -83,7 +77,7 @@ public class MenuAdd extends JMenu implements Menu, ActionListener
         return button;
     }*/
     
-    private JButton createSummaryButton()
+   /* private JButton createSummaryButton()
     {
         final JButton button = new JButton("Summary");
         
@@ -110,8 +104,8 @@ public class MenuAdd extends JMenu implements Menu, ActionListener
         });
         return button;
     }
-    
-    private JButton createProductButton(final TabBody product)
+    */
+    /*private JButton createProductButton(final TabBody product)
     {
         JButton button = new JButton("x");
         button.setMargin(new Insets(0, 0, 0, 0));
@@ -137,7 +131,7 @@ public class MenuAdd extends JMenu implements Menu, ActionListener
         });
         return button;
     }
-    
+    */
     
     public void setTabbedPanel(TabbedPanel tabbedPane)
     {
@@ -145,7 +139,8 @@ public class MenuAdd extends JMenu implements Menu, ActionListener
         
     }
     
-    private void addMeal()
+    @Override
+    public void addMeal()
     {
         String tabTitle = tabbedPane.getTabTitle() + " " + tabbedPane.getTabCount();
         JLabel titleLabel = new JLabel(tabTitle); 
@@ -154,9 +149,30 @@ public class MenuAdd extends JMenu implements Menu, ActionListener
         titlePanel.add(titleLabel);
         titlePanel.add(tabbedPane.createTabButton(tabTitle));
         tabbedPane.addTab(tabTitle, tabPanel);
-        tabPanel.getSummaryButtonPanel().add(createSummaryButton());
+        tabPanel.getSummaryButtonPanel().add(tabbedPane.createSummaryButton());
         tabbedPane.setTabComponentAt(tabbedPane.getTabCount() - 1, titlePanel);
         tabbedPane.getTabPanels().add(tabPanel);       
+    }
+    
+    @Override
+    public void addFood()
+    {
+        TabPanel tmp = tabbedPane
+            .getTabPanels()
+            .get(tabbedPane.getSelectedIndex());
+        tmp.getProducts().add(new TabBody());
+        tmp.getProducts()
+            .get(tmp.getProducts().size() - 1)
+            .addComponent(tabbedPane.createProductButton(tmp.getProducts().get(tmp.getProducts().size() - 1)));
+        tabbedPane
+            .getTabPanels()
+            .get(tabbedPane.getSelectedIndex())
+            .getProductsPanel()
+            .add(tmp.getProducts().get(tmp.getProducts().size() - 1));
+        tabbedPane
+            .getTabPanels()
+            .get(tabbedPane.getSelectedIndex())
+            .setCounter(tabbedPane.getTabPanels().get(tabbedPane.getSelectedIndex()).getCounter() + 1); 
     }
     
     @Override
@@ -177,24 +193,13 @@ public class MenuAdd extends JMenu implements Menu, ActionListener
             }
             else
             {
-                if(tabbedPane.getTabPanels().get(tabbedPane.getSelectedIndex()).getCounter() < MAX_PRODUCTS)
+                if(tabbedPane
+                    .getTabPanels()
+                    .get(tabbedPane.getSelectedIndex())
+                    .getCounter() < tabbedPane.getMaxProducts())
+                    
                 {
-                    TabPanel tmp = tabbedPane
-                        .getTabPanels()
-                        .get(tabbedPane.getSelectedIndex());
-                    tmp.getProducts().add(new TabBody());
-                    tmp.getProducts()
-                        .get(tmp.getProducts().size() - 1)
-                        .addComponent(createProductButton(tmp.getProducts().get(tmp.getProducts().size() - 1)));
-                    tabbedPane
-                        .getTabPanels()
-                        .get(tabbedPane.getSelectedIndex())
-                        .getProductsPanel()
-                        .add(tmp.getProducts().get(tmp.getProducts().size() - 1));
-                    tabbedPane
-                        .getTabPanels()
-                        .get(tabbedPane.getSelectedIndex())
-                        .setCounter(tabbedPane.getTabPanels().get(tabbedPane.getSelectedIndex()).getCounter() + 1); 
+                    addFood();
                 }
                 else
                 {

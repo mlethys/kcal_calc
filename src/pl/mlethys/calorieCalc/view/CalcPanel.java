@@ -28,8 +28,7 @@ public class CalcPanel extends JPanel
     private final int WIDTH = 800;
     private final int HEIGHT = 600;
     private JMenuBar menuBar;
- //   private final JTabbedPane TABBED_PANE;
-    private TabbedPanel TABBED_PANE;
+    private final TabbedPanel TABBED_PANE;
     private MenuAdd menuAdd;
     private final JFrame PARENT;
     private ToolBar toolBar;
@@ -50,12 +49,11 @@ public class CalcPanel extends JPanel
         add(TABBED_PANE);
         TABBED_PANE.add(menuBar);
         this.PARENT = parent;
+        toolBar.setTabbedPanel(TABBED_PANE);
         parent.setJMenuBar(menuBar);
     }
     
-    /**
-     * Methods creates menu bar on the top of panel
-     */
+    
     private void createMenuBar()
     {
         menuBar = new JMenuBar();
@@ -89,10 +87,7 @@ public class CalcPanel extends JPanel
         super.paintComponent(g);
         g.drawImage(loadImage("kcal_background.jpg"), 0, 0, null);
     }
-    /**
-     * Method gets menu bar object
-     * @return JMenuBar object
-     */
+    
     public JMenuBar getMenuBar()
     {
         return menuBar;

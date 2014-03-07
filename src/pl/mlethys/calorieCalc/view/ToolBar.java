@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
@@ -22,13 +23,14 @@ import javax.swing.JToolBar;
  * @author mlethys
  * @version
  */
-public class ToolBar extends JPanel implements ActionListener
+public class ToolBar extends JPanel implements ActionListener, MenuFeatures
 {
     private JButton newMealButton;
     private JButton newFoodButton;
     private JButton jumpToStartButton;
     private JToolBar toolBar;
     private JFrame PARENT;
+    private TabbedPanel tabbedPanel;
     
     public ToolBar(JFrame parent)
     {
@@ -40,9 +42,11 @@ public class ToolBar extends JPanel implements ActionListener
         
         newMealButton = new JButton();
         newMealButton.setToolTipText("Add new meal");
+        newMealButton.addActionListener(this);
         
         newFoodButton = new JButton();
         newFoodButton.setToolTipText("Add new food");
+        newFoodButton.addActionListener(this);
         
         jumpToStartButton = new JButton();
         jumpToStartButton.setToolTipText("Jump to start");
@@ -86,7 +90,72 @@ public class ToolBar extends JPanel implements ActionListener
         }
         else if(source == newMealButton)
         {
-          
+            addMeal();
         }
-    }   
+        else if(source == newFoodButton)
+        {
+            if (tabbedPanel.getTabCount() == 0)
+            {
+                String msg = "You have to create new meal at first!";
+                JOptionPane.showMessageDialog(tabbedPanel, msg);
+            }
+            else
+            {
+                if(tabbedPanel
+                    .getTabPanels()
+                    .get(tabbedPanel.getSelectedIndex())
+                    .getCounter() < tabbedPanel.getMaxProducts())
+                    
+                {
+                    addFood();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(tabbedPanel, "You have reached the maximum number of products!");
+                }
+            }
+        }
+    } 
+    
+    public void setTabbedPanel(TabbedPanel tabbedPanel)
+    {
+        this.tabbedPanel = tabbedPanel;
+    }
+
+    @Override
+    public void addFood()
+    {
+        TabPanel tmp = tabbedPanel
+            .getTabPanels()
+            .get(tabbedPanel.getSelectedIndex());
+        tmp.getProducts().add(new TabBody());
+        tmp.getProducts()
+            .get(tmp.getProducts().size() - 1)
+            .addComponent(tabbedPanel.createProductButton(tmp.getProducts().get(tmp.getProducts().size() - 1)));
+        tabbedPanel
+            .getTabPanels()
+            .get(tabbedPanel.getSelectedIndex())
+            .getProductsPanel()
+            .add(tmp.getProducts().get(tmp.getProducts().size() - 1));
+        tabbedPanel
+            .getTabPanels()
+            .get(tabbedPanel.getSelectedIndex())
+            .setCounter(tabbedPanel.getTabPanels().get(tabbedPanel.getSelectedIndex()).getCounter() + 1); 
+        tabbedPanel.repaint();
+    }
+
+    @Override
+    public void addMeal()
+    {
+        String tabTitle = tabbedPanel.getTabTitle() + " " + tabbedPanel.getTabCount();
+        JLabel titleLabel = new JLabel(tabTitle); 
+        JPanel titlePanel = new JPanel();
+        TabPanel tabPanel = new TabPanel();
+        titlePanel.add(titleLabel);
+        titlePanel.add(tabbedPanel.createTabButton(tabTitle));
+        tabbedPanel.addTab(tabTitle, tabPanel);
+        tabPanel.getSummaryButtonPanel().add(tabbedPanel.createSummaryButton());
+        tabbedPanel.setTabComponentAt(tabbedPanel.getTabCount() - 1, titlePanel);
+        tabbedPanel.getTabPanels().add(tabPanel);       
+    }
 }

@@ -6,7 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
+import pl.mlethys.calorieCalc.model.CalculatedMeal;
+import pl.mlethys.calorieCalc.model.NoProductsException;
 
 /**
  * 
@@ -47,6 +50,58 @@ public class TabbedPanel extends JTabbedPane
         return button;
     }
     
+    public JButton createSummaryButton()
+    {
+        final JButton button = new JButton("Summary");
+        
+        button.addActionListener(new ActionListener() 
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            { 
+                CalculatedMeal meal = new CalculatedMeal();
+                try
+                {
+                    meal.calculateMeal(TAB_PANELS.get(TABBED_PANE.getSelectedIndex()).getProducts());
+                    JOptionPane.showMessageDialog(TABBED_PANE, "Kcal: " + meal.getKcal() + "\n"
+                                                                + "Proteins: " + meal.getProteins() + "\n"
+                                                                + "Fats: " + meal.getFats() + "\n"
+                                                                + "Carbs: " + meal.getCarbs());
+                } 
+                catch (NoProductsException ex)
+                {
+                    JOptionPane.showMessageDialog(TABBED_PANE, "You have to insert products first!");
+                }
+            }
+        });
+        return button;
+    }
+    
+    public JButton createProductButton(final TabBody product)
+    {
+        JButton button = new JButton("x");
+        button.setMargin(new Insets(0, 0, 0, 0));
+        button.setPreferredSize(new Dimension(18, 18));
+        button.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                TAB_PANELS
+                    .get(TABBED_PANE.getSelectedIndex())
+                    .setCounter(TAB_PANELS.get(TABBED_PANE.getSelectedIndex())
+                    .getCounter() - 1);
+                product.removeAll();
+                TAB_PANELS
+                    .get(TABBED_PANE.getSelectedIndex())
+                    .getProducts()
+                    .remove(TAB_PANELS.get(TABBED_PANE.getSelectedIndex()).getProducts().size() - 1);
+                TABBED_PANE.repaint();
+            }
+        });
+        return button;
+    }
+    
     public ArrayList<TabPanel> getTabPanels()
     {
         return TAB_PANELS;
@@ -55,6 +110,11 @@ public class TabbedPanel extends JTabbedPane
     public String getTabTitle()
     {
         return TAB_TITLE;
+    }
+    
+    public int getMaxProducts()
+    {
+        return MAX_PRODUCTS;
     }
 
 }
