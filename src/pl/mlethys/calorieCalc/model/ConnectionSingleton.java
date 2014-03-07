@@ -44,13 +44,13 @@ public class ConnectionSingleton
     {
         String username = "kcal";
         String password = "kcal";
-        String url = "jdbc:derby://localhost:1527/kcal_calc_db";
+        String url = "jdbc:derby:database";
         if (connection == null)
         {
             Properties connectionProperties = new Properties();
             connectionProperties.put("user", username);
             connectionProperties.put("password", password);
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             connection = DriverManager.getConnection(url, connectionProperties);
         }
         return connection;

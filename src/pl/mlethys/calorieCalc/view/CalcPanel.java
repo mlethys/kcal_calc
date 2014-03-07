@@ -18,10 +18,6 @@ import javax.swing.UIManager;
  * @author mlethys
  * @version beta 0.1.0
  */
-/**
- * 
- * Class for main panel which contains all of components
- */
 public class CalcPanel extends JPanel
 {
     private final int WIDTH = 800;
