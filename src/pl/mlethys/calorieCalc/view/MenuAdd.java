@@ -28,7 +28,6 @@ public class MenuAdd extends JMenu implements Menu, ActionListener, MenuFeatures
     private final JMenuItem NEW_FOOD;
     private TabbedPanel tabbedPane;
     
-    private final int MAX_PRODUCTS = 8;
     /**
      * Constructor of component
      */
@@ -50,88 +49,7 @@ public class MenuAdd extends JMenu implements Menu, ActionListener, MenuFeatures
         add(NEW_MEAL);
         add(NEW_FOOD);
     }
-    /**
-     * Method creates button for tab in tabbed panel
-     * @param title
-     * @return 
-     *
-    private JButton createTabButton(final String title)
-    {
-        JButton button = new JButton("x");
-        button.setMargin(new Insets(0, 0, 0, 0));
-        button.setPreferredSize(new Dimension(15, 15));
-        button.addActionListener(new ActionListener()
-        {
-            /**
-             * Method handles actions performed on button
-             * @param e ActionEvent object
-             *
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                int index = tabbedPane.indexOfTab(title);
-                TAB_PANELS.remove(index);
-                tabbedPane.remove(index);
-            }
-        });
-        return button;
-    }*/
-    
-   /* private JButton createSummaryButton()
-    {
-        final JButton button = new JButton("Summary");
-        
-        button.addActionListener(new ActionListener() 
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                
-                CalculatedMeal meal = new CalculatedMeal();
-                try
-                {
-                    meal.calculateMeal(tabbedPane.getTabPanels().get(tabbedPane.getSelectedIndex()).getProducts());
-                    JOptionPane.showMessageDialog(tabbedPane, "Kcal: " + meal.getKcal() + "\n"
-                                                                + "Proteins: " + meal.getProteins() + "\n"
-                                                                + "Fats: " + meal.getFats() + "\n"
-                                                                + "Carbs: " + meal.getCarbs());
-                } 
-                catch (NoProductsException ex)
-                {
-                    JOptionPane.showMessageDialog(tabbedPane, "You have to insert products first!");
-                }
-            }
-        });
-        return button;
-    }
-    */
-    /*private JButton createProductButton(final TabBody product)
-    {
-        JButton button = new JButton("x");
-        button.setMargin(new Insets(0, 0, 0, 0));
-        button.setPreferredSize(new Dimension(18, 18));
-        button.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                tabbedPane
-                    .getTabPanels()
-                    .get(tabbedPane.getSelectedIndex())
-                    .setCounter(tabbedPane.getTabPanels().get(tabbedPane.getSelectedIndex())
-                    .getCounter() - 1);
-                product.removeAll();
-                tabbedPane
-                    .getTabPanels()
-                    .get(tabbedPane.getSelectedIndex())
-                    .getProducts()
-                    .remove(tabbedPane.getTabPanels().get(tabbedPane.getSelectedIndex()).getProducts().size() - 1);
-                tabbedPane.repaint();
-            }
-        });
-        return button;
-    }
-    */
+
     
     public void setTabbedPanel(TabbedPanel tabbedPane)
     {
