@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import pl.mlethys.calorieCalc.view.manager.ManagerPanel;
 
 /**
  * 
@@ -24,6 +25,7 @@ public class MainPanel extends JPanel
     private final int WIDTH = 800;
     private final int HEIGHT = 600;
     private JButton calcButton, dietButton;
+    private Image calcButtonImg, dietButtonImg;
     
     public MainPanel(final JFrame parent)
     {
@@ -33,10 +35,10 @@ public class MainPanel extends JPanel
         dietButton = new JButton();
         try 
         {
-            Image img = ImageIO.read(getClass().getResource("kcal_calc.jpg"));
-            calcButton.setIcon(new ImageIcon(img));
-            img = ImageIO.read(getClass().getResource("diet_menager.jpg"));
-            dietButton.setIcon(new ImageIcon(img));
+            calcButtonImg = ImageIO.read(getClass().getResource("kcal_calc.jpg"));
+            calcButton.setIcon(new ImageIcon(calcButtonImg));
+            dietButtonImg = ImageIO.read(getClass().getResource("diet_manager.jpg"));
+            dietButton.setIcon(new ImageIcon(dietButtonImg));
         } 
         catch (IOException ex)
         {
@@ -53,6 +55,18 @@ public class MainPanel extends JPanel
                 parent.add(calcPanel);
             }
         });
+        
+        dietButton.addActionListener(new ActionListener() 
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                ManagerPanel managerPanel = new ManagerPanel(parent);
+                MainPanel.this.setVisible(false);
+                parent.add(managerPanel);
+            }
+        });
+        
         add(calcButton);
         add(dietButton);
     }

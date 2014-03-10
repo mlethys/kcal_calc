@@ -24,14 +24,10 @@ public class CalcPanel extends JPanel
     private final int HEIGHT = 600;
     private JMenuBar menuBar;
     private final TabbedPanel TABBED_PANE;
-    private MenuAdd menuAdd;
-    private final JFrame PARENT;
     private ToolBar toolBar;
+    private Image background;
 
-    /**
-     * Constructor of panel
-     * @param parent
-     */
+
     public CalcPanel(JFrame parent)
     {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -43,9 +39,10 @@ public class CalcPanel extends JPanel
         createMenuBar();
         add(TABBED_PANE);
         TABBED_PANE.add(menuBar);
-        this.PARENT = parent;
         toolBar.setTabbedPanel(TABBED_PANE);
         parent.setJMenuBar(menuBar);
+        background = loadImage("kcal_background.jpg");
+       // this.set
     }
     
     
@@ -54,7 +51,7 @@ public class CalcPanel extends JPanel
         menuBar = new JMenuBar();
         MenuHelp menuHelp = new MenuHelp();
         menuHelp.addItems();
-        menuAdd = new MenuAdd();
+        MenuAdd menuAdd = new MenuAdd();
         menuAdd.setTabbedPanel(TABBED_PANE);
         menuAdd.addItems();
         menuBar.add(menuAdd);
@@ -79,8 +76,7 @@ public class CalcPanel extends JPanel
     @Override
     public void paintComponent(Graphics g)
     {
-        super.paintComponent(g);
-        g.drawImage(loadImage("kcal_background.jpg"), 0, 0, null);
+        g.drawImage(background, 0, 0, null);
     }
     
     public JMenuBar getMenuBar()

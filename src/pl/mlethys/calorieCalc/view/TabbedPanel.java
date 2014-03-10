@@ -21,6 +21,7 @@ public class TabbedPanel extends JTabbedPane
     private final String TAB_TITLE;
     private final ArrayList<TabPanel> TAB_PANELS;
     private final int MAX_PRODUCTS = 8;
+    private final int MAX_TABS = 9;
     private final JTabbedPane TABBED_PANE;
     
     public TabbedPanel()
@@ -115,6 +116,11 @@ public class TabbedPanel extends JTabbedPane
     public int getMaxProducts()
     {
         return MAX_PRODUCTS;
+    }
+    
+    public int getMaxTabs()
+    {
+        return MAX_TABS;
     }
 
 }

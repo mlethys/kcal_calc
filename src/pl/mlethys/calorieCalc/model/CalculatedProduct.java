@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
@@ -26,6 +28,7 @@ public class CalculatedProduct
     private float carbs;
     private float amount;
     private ArrayList<String> productsFound;
+    private Connection connection;
     
     public CalculatedProduct()
     {
@@ -37,6 +40,18 @@ public class CalculatedProduct
         unit = "";
         categoryId = 0;
         productsFound = new ArrayList<>();
+        try
+        {
+            connection = ConnectionSingleton.getInstance().getConnection();
+        } 
+        catch (ClassNotFoundException ex)
+        {
+            Logger.getLogger(CalculatedProduct.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (SQLException ex)
+        {
+            Logger.getLogger(CalculatedProduct.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void getProductName(JTextField nameTextField) throws EmptyStatementException
@@ -82,9 +97,7 @@ public class CalculatedProduct
     
     public void setNutritionalValues() throws PhraseNotFoundException, TooManyResultsFoundException, ClassNotFoundException, SQLException
     {
-       /* Connector connector = new Connector();
-        connector.tryConnect();*/
-        Connection connection = ConnectionSingleton.getInstance().getConnection();
+       
         Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
         ResultSet resultSet = statement.executeQuery(setQuery());
         while(resultSet.next())

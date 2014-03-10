@@ -28,10 +28,6 @@ import pl.mlethys.calorieCalc.model.TooManyResultsFoundException;
  * @author mlethys
  * @version beta 0.1.0
  */
-/**
- * 
- * Class for components displayed on body of tabbed pane
- */
 public class TabBody extends JComponent
 {
     private JTextField nameField;
@@ -43,9 +39,6 @@ public class TabBody extends JComponent
     private final GridBagConstraints C;
     private CalculatedProduct meal;
     
-    /**
-     * Constructor of component
-     */
     public TabBody()
     {
         setLayout(new GridBagLayout());
@@ -60,10 +53,6 @@ public class TabBody extends JComponent
         productsCopy = new ArrayList<>();
         AMOUNT_FIELD = new JTextField(20)
         {
-            /**
-             * Method handles keyboard events. Prevents typing illegal characters
-             * @param ev 
-             */
             @Override
             public void processKeyEvent(KeyEvent ev)
             {

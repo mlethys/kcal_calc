@@ -10,7 +10,7 @@ package pl.mlethys.calorieCalc.view;
  *
  * @author mlethys
  */
-public interface MenuFeatures 
+public interface MenuAddFeatures 
 {
     public void addFood();
     public void addMeal();

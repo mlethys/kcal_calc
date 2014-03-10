@@ -1,17 +1,12 @@
 package pl.mlethys.calorieCalc.view;
 
-import java.awt.Dimension;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import pl.mlethys.calorieCalc.model.CalculatedMeal;
-import pl.mlethys.calorieCalc.model.NoProductsException;
 
 /**
  *
@@ -22,7 +17,7 @@ import pl.mlethys.calorieCalc.model.NoProductsException;
  * 
  * Class for submenu in menu bar
  */
-public class MenuAdd extends JMenu implements Menu, ActionListener, MenuFeatures
+public class MenuAdd extends JMenu implements Menu, ActionListener, MenuAddFeatures
 {
     private final JMenuItem NEW_MEAL;
     private final JMenuItem NEW_FOOD;
@@ -60,7 +55,7 @@ public class MenuAdd extends JMenu implements Menu, ActionListener, MenuFeatures
     @Override
     public void addMeal()
     {
-        String tabTitle = tabbedPane.getTabTitle() + " " + tabbedPane.getTabCount();
+        String tabTitle = tabbedPane.getTabTitle();
         JLabel titleLabel = new JLabel(tabTitle); 
         JPanel titlePanel = new JPanel();
         TabPanel tabPanel = new TabPanel();
@@ -100,7 +95,15 @@ public class MenuAdd extends JMenu implements Menu, ActionListener, MenuFeatures
         
         if (source == NEW_MEAL )
         {
-           addMeal();
+            if(tabbedPane.getMaxTabs() < tabbedPane.getTabCount())
+            {
+                String msg = "You have reached the maximum number of meals!";
+                JOptionPane.showMessageDialog(tabbedPane, msg);
+            }
+            else
+            {
+                addMeal();
+            }
         }
         else if (source == NEW_FOOD)
         {

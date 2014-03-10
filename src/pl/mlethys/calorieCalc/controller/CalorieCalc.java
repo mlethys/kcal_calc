@@ -2,6 +2,8 @@ package pl.mlethys.calorieCalc.controller;
 
 import java.awt.EventQueue;
 import javax.swing.UIManager;
+import pl.mlethys.calorieCalc.model.CalculatedMeal;
+import pl.mlethys.calorieCalc.model.CalculatedProduct;
 import pl.mlethys.calorieCalc.view.Frame;
 
 /**
@@ -28,6 +30,7 @@ public class CalorieCalc
             {
                 Frame frame = new Frame();
                 UIManager.put("swing.boldMetal", Boolean.FALSE);
+                CalculatedProduct product = new CalculatedProduct();
             }
         });
     }

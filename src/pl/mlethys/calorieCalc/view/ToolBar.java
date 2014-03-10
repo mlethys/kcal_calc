@@ -23,7 +23,7 @@ import javax.swing.JToolBar;
  * @author mlethys
  * @version
  */
-public class ToolBar extends JPanel implements ActionListener, MenuFeatures
+public class ToolBar extends JPanel implements ActionListener, MenuAddFeatures
 {
     private JButton newMealButton;
     private JButton newFoodButton;
@@ -90,7 +90,15 @@ public class ToolBar extends JPanel implements ActionListener, MenuFeatures
         }
         else if(source == newMealButton)
         {
-            addMeal();
+            if(tabbedPanel.getMaxTabs() < tabbedPanel.getTabCount())
+            {
+                String msg = "You have reached the maximum number of meals!";
+                JOptionPane.showMessageDialog(tabbedPanel, msg);
+            }
+            else
+            {
+                addMeal();
+            }
         }
         else if(source == newFoodButton)
         {
@@ -147,7 +155,7 @@ public class ToolBar extends JPanel implements ActionListener, MenuFeatures
     @Override
     public void addMeal()
     {
-        String tabTitle = tabbedPanel.getTabTitle() + " " + tabbedPanel.getTabCount();
+        String tabTitle = tabbedPanel.getTabTitle();
         JLabel titleLabel = new JLabel(tabTitle); 
         JPanel titlePanel = new JPanel();
         TabPanel tabPanel = new TabPanel();
