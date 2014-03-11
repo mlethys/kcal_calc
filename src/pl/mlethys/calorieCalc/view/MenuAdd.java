@@ -55,7 +55,7 @@ public class MenuAdd extends JMenu implements Menu, ActionListener, MenuAddFeatu
     @Override
     public void addMeal()
     {
-        String tabTitle = tabbedPane.getTabTitle();
+        String tabTitle = tabbedPane.getTabTitle() + " " + tabbedPane.getTabCount();;
         JLabel titleLabel = new JLabel(tabTitle); 
         JPanel titlePanel = new JPanel();
         TabPanel tabPanel = new TabPanel();

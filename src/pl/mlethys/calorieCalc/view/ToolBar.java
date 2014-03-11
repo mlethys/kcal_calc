@@ -155,7 +155,7 @@ public class ToolBar extends JPanel implements ActionListener, MenuAddFeatures
     @Override
     public void addMeal()
     {
-        String tabTitle = tabbedPanel.getTabTitle();
+        String tabTitle = tabbedPanel.getTabTitle()+ " " + tabbedPanel.getTabCount();
         JLabel titleLabel = new JLabel(tabTitle); 
         JPanel titlePanel = new JPanel();
         TabPanel tabPanel = new TabPanel();
