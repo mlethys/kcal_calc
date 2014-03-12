@@ -6,6 +6,8 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -18,13 +20,16 @@ public class TabBody extends JPanel
     private JButton addButton;
     private JButton detailsButton;
     private JButton editButton;
+    private GridBagConstraints c;
+    private TabBody tabBody;
     
     public TabBody()
     {
         super();
+        tabBody = this;
         setOpaque(false);
         setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
+        c = new GridBagConstraints();
         c.anchor = GridBagConstraints.WEST;
         c.gridx = 0;
         c.gridy = 0;
@@ -36,9 +41,24 @@ public class TabBody extends JPanel
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                new ProductFrame();
+                ProductFrame productFrame = new ProductFrame(tabBody);
             }
         });
         add(addButton, c);
+    }
+    
+    public GridBagConstraints getGridBagConstraints()
+    {
+        return c;
+    }
+    
+    public JButton getAddButton()
+    {
+        return addButton;
+    }
+    
+    public void addDetailsButton()
+    {
+        
     }
 }

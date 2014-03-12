@@ -1,8 +1,8 @@
 package pl.mlethys.calorieCalc.view.manager;
 
 import java.awt.Color;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 
 /**
  * 
@@ -14,6 +14,7 @@ public class TabPanel extends JPanel
     public TabPanel()
     {
         super();
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setOpaque(false);
         setBackground(new Color(0, 0, 0, 0));
     }

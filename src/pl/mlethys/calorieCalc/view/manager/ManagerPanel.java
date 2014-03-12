@@ -39,7 +39,7 @@ public class ManagerPanel extends JPanel
         createMenuBar();
         parent.setJMenuBar(menuBar);
         add(tabbedPane);
-        BACKGROUND = loadImage("manager_background.jpg");
+        BACKGROUND = loadImage("manager_background.bmp");
     }
     
     private Image loadImage(String fileName)

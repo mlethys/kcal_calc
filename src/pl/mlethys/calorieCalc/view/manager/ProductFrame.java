@@ -9,15 +9,24 @@ import javax.swing.JFrame;
  */
 public class ProductFrame extends JFrame
 {
-    public ProductFrame()
+    private ProductPanel productPanel;
+    private TabBody tabBody;
+
+    public ProductFrame(TabBody tabBody)
     {
         super("Products");
-        ProductPanel productPanel = new ProductPanel(this);
+        this.tabBody = tabBody;
+        productPanel = new ProductPanel(this);
         add(productPanel);
         pack();
         setResizable(false);
         setLocationByPlatform(true);
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
+    
+    public TabBody getTabBody()
+    {
+        return tabBody;
     }
 }

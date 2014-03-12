@@ -1,7 +1,5 @@
 package pl.mlethys.calorieCalc.view.manager;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,10 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.SpringLayout;
 import pl.mlethys.calorieCalc.model.DatabaseInfo;
 
 /**
@@ -23,17 +19,20 @@ import pl.mlethys.calorieCalc.model.DatabaseInfo;
 public class ProductsTabBody extends JPanel implements ActionListener
 {
     private String query;
+    private final ProductsTabbedPane PARENT;
     
-    public ProductsTabBody(String tabTitle)
+    public ProductsTabBody(String tabTitle, ProductsTabbedPane parent)
     {
         setLayout(new GridLayout(10, 10));
+        PARENT = parent;
+        
         query = "SELECT PRODUCT_NAME FROM PRODUCTS "
                 + "INNER JOIN CATEGORIES ON "
                 + "PRODUCTS.CATEGORY = CATEGORIES.CATEGORY_ID "
                 + "WHERE KCAL.CATEGORIES.CATEGORY_NAME = "
                 + "'" + tabTitle + "'";
-        
         DatabaseInfo categories = new DatabaseInfo();
+        
         try
         {
             setButtons(categories.getInfo(query));
@@ -54,7 +53,7 @@ public class ProductsTabBody extends JPanel implements ActionListener
         {
             String buttonBody = "<html><p>" + resultSet.getString("PRODUCT_NAME") + "</p>";
             JButton button = new JButton(buttonBody);
-          
+            button.addActionListener(this);
             add(button);
         }
     }
@@ -62,6 +61,9 @@ public class ProductsTabBody extends JPanel implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
+        PARENT
+            .getSelectedProducts()
+            .getProductsSelected()
+            .add(e.getActionCommand().substring(9, e.getActionCommand().length() - 4));
     }
-
 }

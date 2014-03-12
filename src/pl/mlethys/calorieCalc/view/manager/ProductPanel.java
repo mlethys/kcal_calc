@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -20,7 +20,7 @@ public class ProductPanel extends JPanel
     private ProductsTabbedPane productsTabbedPane;
     private JButton doneButton;
    
-    public ProductPanel(final JFrame PARENT)
+    public ProductPanel(final ProductFrame PARENT)
     {
         super();
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -34,9 +34,27 @@ public class ProductPanel extends JPanel
             @Override
             public void actionPerformed(ActionEvent e)
             {
+                for(String product : productsTabbedPane.getSelectedProducts().getProductsSelected())
+                {
+                    JLabel productLabel = new JLabel(product);
+                    PARENT.getTabBody().getGridBagConstraints().gridx++;
+                    PARENT
+                        .getTabBody()
+                        .add(productLabel, PARENT.getTabBody().getGridBagConstraints());
+                    PARENT.getTabBody().repaint();
+                }
+                PARENT.getTabBody().getGridBagConstraints().gridy++;
+                PARENT.getTabBody().getGridBagConstraints().gridx = 0;
+                PARENT.getTabBody().remove(PARENT.getTabBody().getAddButton());
+                PARENT.getTabBody().repaint();
                 PARENT.dispose();
             }
         });
         add(doneButton, BorderLayout.SOUTH);
+    }
+    
+    public ProductsTabbedPane getProductsTabbedPane()
+    {
+        return productsTabbedPane;
     }
 }

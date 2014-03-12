@@ -41,7 +41,7 @@ public class CalcPanel extends JPanel
         TABBED_PANE.add(menuBar);
         toolBar.setTabbedPanel(TABBED_PANE);
         parent.setJMenuBar(menuBar);
-        background = loadImage("kcal_background.jpg");
+        background = loadImage("kcal_background.bmp");
     }
     
     

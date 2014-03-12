@@ -35,9 +35,9 @@ public class MainPanel extends JPanel
         dietButton = new JButton();
         try 
         {
-            calcButtonImg = ImageIO.read(getClass().getResource("kcal_calc.jpg"));
+            calcButtonImg = ImageIO.read(getClass().getResource("kcal_calc.bmp"));
             calcButton.setIcon(new ImageIcon(calcButtonImg));
-            dietButtonImg = ImageIO.read(getClass().getResource("diet_manager.jpg"));
+            dietButtonImg = ImageIO.read(getClass().getResource("diet_manager.bmp"));
             dietButton.setIcon(new ImageIcon(dietButtonImg));
         } 
         catch (IOException ex)
