@@ -1,6 +1,7 @@
 package pl.mlethys.calorieCalc.view.manager;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -11,6 +12,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import pl.mlethys.calorieCalc.view.MenuHelp;
 
 /**
@@ -22,15 +24,18 @@ public class ManagerPanel extends JPanel
 {
     private final int WIDTH = 800;
     private final int HEIGHT = 600;
-    private TabbedPane tabbedPane;
+    private DietTabbedPane tabbedPane;
     private JMenuBar menuBar;
     private final Image BACKGROUND;
+    private final JFrame PARENT;
     
     public ManagerPanel(JFrame parent)
     {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setLayout(new BorderLayout());
-        tabbedPane = new TabbedPane();
+        UIManager.put("TabbedPane.contentOpaque", false);
+        PARENT = parent; 
+        tabbedPane = new DietTabbedPane();
         createMenuBar();
         parent.setJMenuBar(menuBar);
         add(tabbedPane);
@@ -65,9 +70,8 @@ public class ManagerPanel extends JPanel
         MenuHelp menuHelp = new MenuHelp();
         menuHelp.addItems();
         
-        MenuFile menuFile = new MenuFile();
+        MenuFile menuFile = new MenuFile(PARENT, tabbedPane);
         menuFile.addItems();
-        
         MenuDiet menuDiet = new MenuDiet(tabbedPane);
         menuDiet.addItems();
         

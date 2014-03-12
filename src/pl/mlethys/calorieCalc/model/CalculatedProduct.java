@@ -40,18 +40,6 @@ public class CalculatedProduct
         unit = "";
         categoryId = 0;
         productsFound = new ArrayList<>();
-        try
-        {
-            connection = ConnectionSingleton.getInstance().getConnection();
-        } 
-        catch (ClassNotFoundException ex)
-        {
-            Logger.getLogger(CalculatedProduct.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        catch (SQLException ex)
-        {
-            Logger.getLogger(CalculatedProduct.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     public void getProductName(JTextField nameTextField) throws EmptyStatementException
@@ -84,11 +72,6 @@ public class CalculatedProduct
         unit = units[unitComboBox.getSelectedIndex()];
     }
     
-    public void getCategory(JComboBox categoryBox, String[] categories) throws NoCategoryFoundException
-    {
-        
-    }
-    
 
     private String setQuery()
     {
@@ -98,8 +81,8 @@ public class CalculatedProduct
     public void setNutritionalValues() throws PhraseNotFoundException, TooManyResultsFoundException, ClassNotFoundException, SQLException
     {
        
-        Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        ResultSet resultSet = statement.executeQuery(setQuery());
+        DatabaseInfo dbInfo = new DatabaseInfo();
+        ResultSet resultSet = dbInfo.getInfo(setQuery());
         while(resultSet.next())
         {
             productsFound.add(resultSet.getString("product_name"));
