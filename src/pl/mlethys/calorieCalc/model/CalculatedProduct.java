@@ -13,15 +13,11 @@ import javax.swing.JTextField;
  * @author mlethys
  * @version beta 0.1.0
  */
-public class CalculatedProduct 
+public class CalculatedProduct extends Calculated
 {
     private String name;
     private String unit;
     private int categoryId;
-    private float kcal;
-    private float proteins;
-    private float fats;
-    private float carbs;
     private float amount;
     private ArrayList<String> productsFound;
     
@@ -37,7 +33,7 @@ public class CalculatedProduct
         productsFound = new ArrayList<>();
     }
     
-    public void getProductName(JTextField nameTextField) throws EmptyStatementException
+    public void setProductName(JTextField nameTextField) throws EmptyStatementException
     {
         if (nameTextField.getText().isEmpty() || "".equals(nameTextField.getText()))
         {
@@ -53,7 +49,7 @@ public class CalculatedProduct
         this.name = name;
     }
     
-    public void getAmount(JTextField amountTextField) throws EmptyStatementException
+    public void setAmount(JTextField amountTextField) throws EmptyStatementException
     {
         if (amountTextField.getText().isEmpty())
         {
@@ -68,7 +64,7 @@ public class CalculatedProduct
         return amount;
     }
     
-    public void getUnit(JComboBox unitComboBox, String[] units) throws NoUnitsFoundException
+    public void setUnit(JComboBox unitComboBox, String[] units) throws NoUnitsFoundException
     {
         if ("".equals(units[unitComboBox.getSelectedIndex()]))
         {
@@ -154,32 +150,8 @@ public class CalculatedProduct
         return tmpCarbs;
     }
     
-    private float round(float d, int decimalPlace) 
-    {
-        BigDecimal bd = new BigDecimal(Float.toString(d));
-        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
-        return bd.floatValue();
-    }
+
     
-    public float getKcal()
-    {
-        return kcal;
-    }
-    
-    public float getProteins()
-    {
-        return proteins;
-    }
-    
-    public float getFats()
-    {
-        return fats;
-    }
-    
-    public float getCarbs()
-    {
-        return carbs;
-    }
     
     public String getName()
     {

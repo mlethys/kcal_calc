@@ -1,11 +1,11 @@
 package pl.mlethys.calorieCalc.view.manager;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
-import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import pl.mlethys.calorieCalc.model.CalculatedMeal;
@@ -27,8 +27,9 @@ public class DetailsPanel extends JPanel
        super();
        setPreferredSize(new Dimension(WIDTH, HEIGHT));
        this.products = products;
-       setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-       add(new InfoPanel());
+       setLayout(new BorderLayout());
+       add(new InfoPanel(), BorderLayout.NORTH);
+       add(new SummaryPanel(), BorderLayout.SOUTH);
    }
    
   
@@ -99,6 +100,64 @@ public class DetailsPanel extends JPanel
                c.gridx = 0;
                c.gridy++;
            }
+       }
+   }
+   
+   public class SummaryPanel extends JPanel
+   {
+       private JLabel panelTitleLabel;
+       private JLabel kcalLabel;
+       private JLabel proteinLabel;
+       private JLabel fatLabel;
+       private JLabel carbLabel;
+       
+       public SummaryPanel()
+       {
+            setLayout(new GridBagLayout());
+            GridBagConstraints c = new GridBagConstraints();
+            c.anchor = GridBagConstraints.WEST;
+            c.gridx = 0;
+            c.gridy = 0;
+            c.insets = new Insets(5, 5, 5, 5);
+            
+            panelTitleLabel = new JLabel("Summary:");
+            add(panelTitleLabel, c);
+            c.gridy++;
+            
+            kcalLabel = new JLabel("Kcal:");
+            add(kcalLabel, c);
+            c.gridx++;
+            
+            proteinLabel = new JLabel("Proteins:");
+            add(proteinLabel, c);
+            c.gridx++;
+            
+            fatLabel = new JLabel("Fats:");
+            add(fatLabel, c);
+            c.gridx++;
+            
+            carbLabel = new JLabel("Carbs:");
+            add(carbLabel, c);
+            c.gridx = 0;
+            c.gridy++;
+            
+            setValues(c);
+          
+       }
+       
+       private void setValues(GridBagConstraints c)
+       {
+           CalculatedMeal meal = new CalculatedMeal();
+           meal.setSummaryInfo(products);
+           
+           add(new JLabel(String.valueOf(meal.getKcal())), c);
+           c.gridx++;
+           add(new JLabel(String.valueOf(meal.getProteins())), c);
+           c.gridx++;
+           add(new JLabel(String.valueOf(meal.getFats())), c);
+           c.gridx++;
+           add(new JLabel(String.valueOf(meal.getCarbs())), c);
+           c.gridx++;
        }
    }
 }

@@ -102,8 +102,8 @@ public class ProductDetailsPanel extends JPanel
                 {
                     product = new CalculatedProduct();
                     product.setNameByForce(parent.getWindowName());
-                    product.getAmount(amountField);
-                    product.getUnit(units, UNITS);
+                    product.setAmount(amountField);
+                    product.setUnit(units, UNITS);
                     product.setNutritionalValues();
                     PRODUCTS.add(product);
                     parent.dispose();

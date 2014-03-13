@@ -73,9 +73,9 @@ public class TabBody extends JComponent
                 product = new CalculatedProduct();
                 try
                 {            
-                    product.getProductName(nameField);
-                    product.getAmount(AMOUNT_FIELD);
-                    product.getUnit(UNITS_BOX, UNITS);
+                    product.setProductName(nameField);
+                    product.setAmount(AMOUNT_FIELD);
+                    product.setUnit(UNITS_BOX, UNITS);
                     product.setNutritionalValues();
                     if(product.getProductsFound().isEmpty())
                     {
@@ -89,7 +89,7 @@ public class TabBody extends JComponent
                     }
                     else
                     {
-                        JOptionPane.showMessageDialog(nameField,"Product name: " + nameField.getText() 
+                        JOptionPane.showMessageDialog(nameField,"Product name: " + product.getName()
                                                         + "\nKCal = " + product.getKcal()
                                                         + "\nProteins = " + product.getProteins() + "g"
                                                         + "\nFats = " + product.getFats() + "g"

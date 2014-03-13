@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTabbedPane;
 import pl.mlethys.calorieCalc.model.DatabaseInfo;
-import pl.mlethys.calorieCalc.model.SelectedProductsContainer;
+import pl.mlethys.calorieCalc.model.ProductsContainer;
 
 /**
  * 
@@ -16,12 +16,12 @@ import pl.mlethys.calorieCalc.model.SelectedProductsContainer;
 public class ProductsTabbedPane extends JTabbedPane 
 {
     private final String CATEGORIES_QUERY = "SELECT CATEGORY_NAME FROM KCAL.CATEGORIES";
-    private SelectedProductsContainer selectedProducts;    
+    private ProductsContainer selectedProducts;    
     public ProductsTabbedPane()
     {
         super();
         DatabaseInfo categories = new DatabaseInfo();
-        selectedProducts = new SelectedProductsContainer();
+        selectedProducts = new ProductsContainer();
         try
         {
             setTabs(categories.getInfo(CATEGORIES_QUERY));
@@ -46,7 +46,7 @@ public class ProductsTabbedPane extends JTabbedPane
        
     }
     
-    public SelectedProductsContainer getSelectedProducts()
+    public ProductsContainer getSelectedProducts()
     {
         return selectedProducts;
     }

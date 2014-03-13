@@ -43,6 +43,8 @@ public class ProductPanel extends JPanel
                 {
                     addProducts();
                     PARENT.getTabBody().addDetailsButton(productsTabbedPane.getSelectedProducts().getProductsSelected());
+                    PARENT.getTabBody().getGridBagConstraints().gridx++;
+                    PARENT.getTabBody().addDeleteButton();
                     PARENT.getTabBody().getGridBagConstraints().gridy++;
                     PARENT.getTabBody().getGridBagConstraints().gridx = 0;
                     PARENT.getTabBody().remove(PARENT.getTabBody().getAddButton());

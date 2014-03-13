@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import pl.mlethys.calorieCalc.model.CalculatedProduct;
 
 /**
  * 
@@ -18,10 +19,12 @@ public class TabPanel extends JPanel
     private JPanel productsPanel;
     private JPanel summaryButtonPanel;
     private final ArrayList<TabBody> PRODUCTS;
+    private ArrayList<CalculatedProduct> calculatedProducts;
         
     public TabPanel()
     {
         PRODUCTS = new ArrayList<>();
+        calculatedProducts = new ArrayList<>();
         counter = 0;
         this.setLayout(new BorderLayout());
         setOpaque(false);
@@ -59,5 +62,10 @@ public class TabPanel extends JPanel
     public ArrayList<TabBody> getProducts()
     {
         return PRODUCTS;
+    }
+    
+    public ArrayList<CalculatedProduct> getCalculatedProducts()
+    {
+        return calculatedProducts;
     }
 }  

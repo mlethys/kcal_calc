@@ -1,5 +1,7 @@
 package pl.mlethys.calorieCalc.view.manager;
 
+import java.awt.Container;
+import java.awt.Dimension;
 import pl.mlethys.calorieCalc.view.manager.products.ProductFrame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -20,7 +22,7 @@ public class TabBody extends JPanel
 {
     private JButton addButton;
     private JButton detailsButton;
-    private JButton editButton;
+    private JButton deleteButton;
     private GridBagConstraints c;
     private TabBody tabBody;
     
@@ -66,9 +68,28 @@ public class TabBody extends JPanel
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                new DetailsFrame(products);
+                DetailsFrame detailsFrame = new DetailsFrame(products);
             }
         });
         add(detailsButton, c);
+    }
+    
+    public void addDeleteButton()
+    {
+        deleteButton = new JButton("x");
+        deleteButton.setMargin(new Insets(0, 0, 0, 0));
+        deleteButton.setPreferredSize(new Dimension(18, 18));
+        deleteButton.addActionListener(new ActionListener() 
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                Container tmpParent = tabBody.getParent();
+                tmpParent.remove(tabBody);
+                tmpParent.repaint();
+                
+            }
+        });
+        add(deleteButton, c);
     }
 }

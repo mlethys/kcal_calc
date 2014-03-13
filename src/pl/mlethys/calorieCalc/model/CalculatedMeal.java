@@ -8,12 +8,8 @@ import pl.mlethys.calorieCalc.view.TabBody;
  * @author mlethys
  * @version
  */
-public class CalculatedMeal 
+public class CalculatedMeal extends Calculated
 {
-    private float kcal;
-    private float proteins;
-    private float carbs;
-    private float fats;
     
     public CalculatedMeal()
     {
@@ -29,37 +25,37 @@ public class CalculatedMeal
         {
             throw new NoProductsException();
         }
-        
+        float tmpKcal = 0;
+        float tmpProteins = 0;
+        float tmpCarbs = 0;
+        float tmpFats = 0;
         for(int i = 0; i < products.size(); i++)
         {
             if (products.get(i).getMeal() == null)
             {
                 return;
             }
-            kcal += products.get(i).getMeal().getKcal();
-            proteins += products.get(i).getMeal().getProteins();
-            carbs += products.get(i).getMeal().getCarbs();
-            fats += products.get(i).getMeal().getFats();
+            tmpKcal += products.get(i).getMeal().getKcal();
+            tmpProteins += products.get(i).getMeal().getProteins();
+            tmpCarbs += products.get(i).getMeal().getCarbs();
+            tmpFats += products.get(i).getMeal().getFats();
         }
+        
+        kcal = round(tmpKcal, 2);
+        proteins = round(tmpProteins, 2);
+        carbs = round(tmpCarbs, 2);
+        fats = round(tmpFats, 2);
        
     }
     
-    public float getKcal()
+    public void setSummaryInfo(ArrayList<CalculatedProduct> products)
     {
-        return kcal;
+        for(CalculatedProduct product : products)
+        {
+            kcal += product.getKcal();
+            proteins += product.getProteins();
+            fats += product.getFats();
+            carbs += product.getCarbs();
+        }
     }
-    
-    public float getCarbs()
-    {
-        return carbs;
-    }
-    public float getFats()
-    {
-        return fats;
-    }
-    public float getProteins()
-    {
-        return proteins;
-    }
-
 }
