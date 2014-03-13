@@ -1,4 +1,4 @@
-package pl.mlethys.calorieCalc.view.manager;
+package pl.mlethys.calorieCalc.view.manager.products;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -60,10 +60,10 @@ public class ProductsTabBody extends JPanel implements ActionListener
 
     @Override
     public void actionPerformed(ActionEvent e)
-    {
-        PARENT
-            .getSelectedProducts()
-            .getProductsSelected()
-            .add(e.getActionCommand().substring(9, e.getActionCommand().length() - 4));
+    {    
+        ProductDetailsFrame productDetails = 
+            new ProductDetailsFrame(e
+                .getActionCommand()
+                .substring(9, e.getActionCommand().length() - 4), PARENT.getSelectedProducts().getProductsSelected());
     }
 }

@@ -20,8 +20,6 @@ import javax.swing.JTextField;
 import pl.mlethys.calorieCalc.model.CalculatedProduct;
 import pl.mlethys.calorieCalc.model.EmptyStatementException;
 import pl.mlethys.calorieCalc.model.NoUnitsFoundException;
-import pl.mlethys.calorieCalc.model.PhraseNotFoundException;
-import pl.mlethys.calorieCalc.model.TooManyResultsFoundException;
 
 /**
  *
@@ -34,10 +32,10 @@ public class TabBody extends JComponent
     private final JTextField AMOUNT_FIELD;
     private final JComboBox<String> UNITS_BOX;
     private final JButton SUBMIT_BUTTON;
-    private final String[] units = {"Grams", "Liters", "Mililiters", ""};
+    private final String[] UNITS = {"Grams", "Liters", "Mililiters", ""};
     private ArrayList<TabBody> productsCopy;
     private final GridBagConstraints C;
-    private CalculatedProduct meal;
+    private CalculatedProduct product;
     
     public TabBody()
     {
@@ -72,18 +70,31 @@ public class TabBody extends JComponent
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                meal = new CalculatedProduct();
+                product = new CalculatedProduct();
                 try
                 {            
-                    meal.getProductName(nameField);
-                    meal.getAmount(AMOUNT_FIELD);
-                    meal.getUnit(UNITS_BOX, units);
-                    meal.setNutritionalValues();
-                    JOptionPane.showMessageDialog(nameField,"Product name: " + nameField.getText() 
-                                                    + "\nKCal = " + meal.getKcal()
-                                                    + "\nProteins = " + meal.getProteins() + "g"
-                                                    + "\nFats = " + meal.getFats() + "g"
-                                                    + "\nCarbs = " + meal.getCarbs() + "g");
+                    product.getProductName(nameField);
+                    product.getAmount(AMOUNT_FIELD);
+                    product.getUnit(UNITS_BOX, UNITS);
+                    product.setNutritionalValues();
+                    if(product.getProductsFound().isEmpty())
+                    {
+                        JOptionPane.showMessageDialog(nameField, "Product not found!");
+                    }
+                    else if(product.getProductsFound().size() > 1)
+                    {
+                        MessagePanel msgPanel = new MessagePanel(product.getProductsFound().toArray(new String[product.getProductsFound().size()]));
+                        JOptionPane.showMessageDialog(nameField, msgPanel);
+                        nameField.setText(msgPanel.getSelectedProduct());
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(nameField,"Product name: " + nameField.getText() 
+                                                        + "\nKCal = " + product.getKcal()
+                                                        + "\nProteins = " + product.getProteins() + "g"
+                                                        + "\nFats = " + product.getFats() + "g"
+                                                        + "\nCarbs = " + product.getCarbs() + "g");
+                    }
                 } 
                 catch (EmptyStatementException ex)
                 {
@@ -92,17 +103,7 @@ public class TabBody extends JComponent
                 catch (NoUnitsFoundException ex)
                 {
                     JOptionPane.showMessageDialog(nameField, "You have to specify the units!");
-                } 
-                catch (PhraseNotFoundException ex)
-                {
-                    JOptionPane.showMessageDialog(nameField, "Product not found!");
-                } 
-                catch (TooManyResultsFoundException ex)
-                {
-                    MessagePanel msgPanel = new MessagePanel(meal.getProductsFound().toArray(new String[meal.getProductsFound().size()]));
-                    JOptionPane.showMessageDialog(nameField, msgPanel);
-                    nameField.setText(msgPanel.getSelectedProduct());
-                }                
+                }    
                 catch (ClassNotFoundException ex)
                 {
                     Logger.getLogger(TabBody.class.getName()).log(Level.SEVERE, null, ex);
@@ -113,7 +114,7 @@ public class TabBody extends JComponent
                 }
             }
         });
-        UNITS_BOX = new JComboBox<>(units);
+        UNITS_BOX = new JComboBox<>(UNITS);
         UNITS_BOX.setSelectedIndex(3);
         C.gridx++;
         add(new JLabel("Product name"), C);
@@ -152,6 +153,6 @@ public class TabBody extends JComponent
     
     public CalculatedProduct getMeal()
     {
-        return meal;
+        return product;
     }
 }

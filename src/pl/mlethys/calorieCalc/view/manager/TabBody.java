@@ -1,14 +1,15 @@
 package pl.mlethys.calorieCalc.view.manager;
 
+import pl.mlethys.calorieCalc.view.manager.products.ProductFrame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+import pl.mlethys.calorieCalc.model.CalculatedProduct;
 
 /**
  * 
@@ -35,7 +36,7 @@ public class TabBody extends JPanel
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
         
-        addButton = new JButton("Add");
+        addButton = new JButton("Add products");
         addButton.addActionListener(new ActionListener() 
         {
             @Override
@@ -57,8 +58,17 @@ public class TabBody extends JPanel
         return addButton;
     }
     
-    public void addDetailsButton()
+    public void addDetailsButton(final ArrayList<CalculatedProduct> products)
     {
-        
+        detailsButton = new JButton("Details");
+        detailsButton.addActionListener(new ActionListener() 
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                new DetailsFrame(products);
+            }
+        });
+        add(detailsButton, c);
     }
 }

@@ -1,14 +1,10 @@
 package pl.mlethys.calorieCalc.model;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
@@ -28,7 +24,6 @@ public class CalculatedProduct
     private float carbs;
     private float amount;
     private ArrayList<String> productsFound;
-    private Connection connection;
     
     public CalculatedProduct()
     {
@@ -53,6 +48,11 @@ public class CalculatedProduct
         
     }
     
+    public void setNameByForce(String name)
+    {
+        this.name = name;
+    }
+    
     public void getAmount(JTextField amountTextField) throws EmptyStatementException
     {
         if (amountTextField.getText().isEmpty())
@@ -61,6 +61,11 @@ public class CalculatedProduct
         }
         String tmp = amountTextField.getText();
         amount = Float.parseFloat(tmp);
+    }
+    
+    public float getAmount()
+    {
+        return amount;
     }
     
     public void getUnit(JComboBox unitComboBox, String[] units) throws NoUnitsFoundException
@@ -78,7 +83,12 @@ public class CalculatedProduct
         return "SELECT * from KCAL.PRODUCTS where product_name like '%" + name + "%'";
     }
     
-    public void setNutritionalValues() throws PhraseNotFoundException, TooManyResultsFoundException, ClassNotFoundException, SQLException
+    public ArrayList<String> getProductsFound()
+    {
+        return productsFound;
+    }
+    
+    public void setNutritionalValues() throws ClassNotFoundException, SQLException
     {
        
         DatabaseInfo dbInfo = new DatabaseInfo();
@@ -86,14 +96,6 @@ public class CalculatedProduct
         while(resultSet.next())
         {
             productsFound.add(resultSet.getString("product_name"));
-        }
-        if(productsFound.isEmpty())
-        {
-            throw new PhraseNotFoundException();
-        }
-        if(productsFound.size() >= 2)
-        {
-            throw new TooManyResultsFoundException();
         }
         resultSet.beforeFirst();
         while(resultSet.next())
@@ -111,10 +113,6 @@ public class CalculatedProduct
         
     }
     
-    public ArrayList<String> getProductsFound()
-    {
-        return productsFound;
-    }
     
     private Float calculateKcal()
     {
@@ -181,5 +179,10 @@ public class CalculatedProduct
     public float getCarbs()
     {
         return carbs;
+    }
+    
+    public String getName()
+    {
+        return name;
     }
 }

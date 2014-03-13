@@ -1,6 +1,8 @@
-package pl.mlethys.calorieCalc.view.manager;
+package pl.mlethys.calorieCalc.view.manager.products;
 
 import javax.swing.JFrame;
+import pl.mlethys.calorieCalc.view.manager.ProductPanel;
+import pl.mlethys.calorieCalc.view.manager.TabBody;
 
 /**
  * 
@@ -18,11 +20,11 @@ public class ProductFrame extends JFrame
         this.tabBody = tabBody;
         productPanel = new ProductPanel(this);
         add(productPanel);
+        setUndecorated(true);
         pack();
         setResizable(false);
-        setLocationByPlatform(true);
+        setLocationByPlatform(true);      
         setVisible(true);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     
     public TabBody getTabBody()

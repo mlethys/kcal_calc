@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-2014-03-12 20:39:05.939 GMT:
- Booting Derby version The Apache Software Foundation - Apache Derby - 10.1.1.0 - (208786): instance c013800d-0144-b805-198d-00000305e8a0
+2014-03-13 15:59:03.885 GMT:
+ Booting Derby version The Apache Software Foundation - Apache Derby - 10.1.1.0 - (208786): instance c013800d-0144-bc2b-148c-00000306ef08
 on database directory D:\projects\kcal_calc\database 
 
 Database Class Loader started - derby.database.classpath=''

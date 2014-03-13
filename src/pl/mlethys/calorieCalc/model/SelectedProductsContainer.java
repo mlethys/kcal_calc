@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class SelectedProductsContainer 
 {
-    private ArrayList<String> productsSelected;
+    private ArrayList<CalculatedProduct> productsSelected;
     
     public SelectedProductsContainer()
     {
@@ -17,7 +17,7 @@ public class SelectedProductsContainer
         
     }
     
-    public ArrayList<String> getProductsSelected()
+    public ArrayList<CalculatedProduct> getProductsSelected()
     {
         return productsSelected;
     }
