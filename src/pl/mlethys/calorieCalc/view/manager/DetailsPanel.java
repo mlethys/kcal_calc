@@ -22,16 +22,51 @@ public class DetailsPanel extends JPanel
    private final int WIDTH = 600;
    private final int HEIGHT = 600;
    
+   private float kcalData = 0;
+   private float proteinsData = 0;
+   private float fatsData = 0;
+   private float carbsData = 0;
+   private InfoPanel infoPanel;
+   private SummaryPanel summaryPanel;
+
+    
+    
+   
    public DetailsPanel(ArrayList<CalculatedProduct> products)
    {
        super();
        setPreferredSize(new Dimension(WIDTH, HEIGHT));
        this.products = products;
        setLayout(new BorderLayout());
-       add(new InfoPanel(), BorderLayout.NORTH);
-       add(new SummaryPanel(), BorderLayout.SOUTH);
+       add(infoPanel = new InfoPanel(), BorderLayout.NORTH);
+       add(summaryPanel = new SummaryPanel(), BorderLayout.SOUTH);
    }
    
+    public SummaryPanel getSummaryPanel()
+    {
+        return summaryPanel;
+    }
+
+   
+   public float getKcalData()
+   {
+       return kcalData;
+   }
+   
+   public float getProteinsData()
+   {
+       return proteinsData;
+   }
+
+   public float getFatsData()
+   {
+      return fatsData;
+   }
+
+   public float getCarbsData()
+   {
+       return carbsData;
+   }
   
    
    public class InfoPanel extends JPanel
@@ -43,6 +78,8 @@ public class DetailsPanel extends JPanel
        private JLabel proteinLabel;
        private JLabel fatLabel;
        private JLabel carbLabel;
+       
+      
        public InfoPanel()
        {
             setLayout(new GridBagLayout());
@@ -110,11 +147,13 @@ public class DetailsPanel extends JPanel
        private JLabel proteinLabel;
        private JLabel fatLabel;
        private JLabel carbLabel;
+       private GridBagConstraints c;
+       private boolean done = false;
        
        public SummaryPanel()
        {
             setLayout(new GridBagLayout());
-            GridBagConstraints c = new GridBagConstraints();
+            c = new GridBagConstraints();
             c.anchor = GridBagConstraints.WEST;
             c.gridx = 0;
             c.gridy = 0;
@@ -140,24 +179,35 @@ public class DetailsPanel extends JPanel
             add(carbLabel, c);
             c.gridx = 0;
             c.gridy++;
-            
-            setValues(c);
+ 
+            setValues();
           
        }
        
-       private void setValues(GridBagConstraints c)
+       public void setValues()
        {
            CalculatedMeal meal = new CalculatedMeal();
            meal.setSummaryInfo(products);
            
-           add(new JLabel(String.valueOf(meal.getKcal())), c);
+           kcalData = meal.getKcal();
+           proteinsData = meal.getProteins();
+           fatsData = meal.getFats();
+           carbsData = meal.getCarbs();
+           
+           add(new JLabel(String.valueOf(kcalData)), c);
            c.gridx++;
-           add(new JLabel(String.valueOf(meal.getProteins())), c);
+           add(new JLabel(String.valueOf(proteinsData)), c);
            c.gridx++;
-           add(new JLabel(String.valueOf(meal.getFats())), c);
+           add(new JLabel(String.valueOf(fatsData)), c);
            c.gridx++;
-           add(new JLabel(String.valueOf(meal.getCarbs())), c);
+           add(new JLabel(String.valueOf(carbsData)), c);
            c.gridx++;
+           done = true;
+       }
+       
+       public boolean isDone()
+       {
+           return done;
        }
    }
 }

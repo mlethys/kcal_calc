@@ -4,13 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/projects/kcal_calc/src/pl/mlethys/calorieCalc/view/manager/TabBody.java</file>
-            <file>file:/D:/projects/kcal_calc/src/pl/mlethys/calorieCalc/view/manager/DetailsFrame.java</file>
             <file>file:/D:/projects/kcal_calc/src/pl/mlethys/calorieCalc/view/manager/DetailsPanel.java</file>
+            <file>file:/D:/projects/kcal_calc/src/pl/mlethys/calorieCalc/view/manager/TabPanel.java</file>
             <file>file:/D:/projects/kcal_calc/src/pl/mlethys/calorieCalc/view/manager/ProductPanel.java</file>
-            <file>file:/D:/projects/kcal_calc/src/pl/mlethys/calorieCalc/view/manager/products/ProductDetailsFrame.java</file>
             <file>file:/D:/projects/kcal_calc/src/pl/mlethys/calorieCalc/view/manager/DayTabbedPane.java</file>
             <file>file:/D:/projects/kcal_calc/src/pl/mlethys/calorieCalc/view/manager/products/ProductDetailsPanel.java</file>
-            <file>file:/D:/projects/kcal_calc/src/pl/mlethys/calorieCalc/view/manager/products/ProductsTabBody.java</file>
         </group>
     </open-files>
 </project-private>

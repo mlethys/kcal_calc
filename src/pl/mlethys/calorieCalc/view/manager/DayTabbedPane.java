@@ -1,5 +1,6 @@
 package pl.mlethys.calorieCalc.view.manager;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;

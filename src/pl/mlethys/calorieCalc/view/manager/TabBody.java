@@ -25,6 +25,10 @@ public class TabBody extends JPanel
     private JButton deleteButton;
     private GridBagConstraints c;
     private TabBody tabBody;
+    private ProductFrame productFrame;
+    private DetailsFrame detailsFrame;
+
+  
     
     public TabBody()
     {
@@ -44,7 +48,7 @@ public class TabBody extends JPanel
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                ProductFrame productFrame = new ProductFrame(tabBody);
+                productFrame = new ProductFrame(tabBody);
             }
         });
         add(addButton, c);
@@ -55,6 +59,11 @@ public class TabBody extends JPanel
         return c;
     }
     
+    public DetailsFrame getDetailsFrame()
+    {
+        return detailsFrame;
+    }
+    
     public JButton getAddButton()
     {
         return addButton;
@@ -63,12 +72,14 @@ public class TabBody extends JPanel
     public void addDetailsButton(final ArrayList<CalculatedProduct> products)
     {
         detailsButton = new JButton("Details");
+        detailsButton.setMargin(new Insets(0, 0, 0, 0));
+        detailsButton.setPreferredSize(new Dimension(80, 18));
         detailsButton.addActionListener(new ActionListener() 
         {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                DetailsFrame detailsFrame = new DetailsFrame(products);
+                detailsFrame = new DetailsFrame(products);
             }
         });
         add(detailsButton, c);
@@ -91,5 +102,10 @@ public class TabBody extends JPanel
             }
         });
         add(deleteButton, c);
+    }
+    
+    public ProductFrame getProductFrame()
+    {
+        return productFrame;
     }
 }
