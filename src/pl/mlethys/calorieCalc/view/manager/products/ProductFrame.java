@@ -31,4 +31,9 @@ public class ProductFrame extends JFrame
     {
         return tabBody;
     }
+    
+    public ProductPanel getProductPanel()
+    {
+        return productPanel;
+    }
 }

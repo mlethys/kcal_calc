@@ -7,9 +7,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import pl.mlethys.calorieCalc.model.CalculatedMeal;
 
 /**
  * 
@@ -37,9 +37,14 @@ public class TabPanel extends JPanel
     
     public void addTabBody()
     {
-        TabBody tabBody = new TabBody();
+        TabBody tabBody = new TabBody(this);
         mealsPanel.add(tabBody);
         meals.add(tabBody);
+    }
+    
+    public ArrayList<TabBody> getMeals()
+    {
+        return meals;
     }
     
     
@@ -73,30 +78,35 @@ public class TabPanel extends JPanel
                     float tmpCarbs = 0;
                     float tmpFats = 0;
                     float tmpProteins = 0;
+                    
                     if(!meals.isEmpty())
                     {
                         for(TabBody meal : meals)
                         {
-                            if(meal.getDetailsFrame() != null)
+                            if(meal.getProductFrame() != null)
                             {
-                                System.out.println("chuju!");
-                                tmpKcal += meal
-                                            .getDetailsFrame()
-                                            .getDetailsPanel()
-                                            .getKcalData();
-                                tmpCarbs += meal
-                                            .getDetailsFrame()
-                                            .getDetailsPanel()
-                                            .getCarbsData();
-                                tmpFats += meal
-                                            .getDetailsFrame()
-                                            .getDetailsPanel()
-                                            .getFatsData();
-                                tmpProteins += meal
-                                            .getDetailsFrame()
-                                            .getDetailsPanel()
-                                            .getProteinsData();
-                                
+                                if(!meal
+                                    .getProductFrame()
+                                    .getProductPanel()
+                                    .getProductsTabbedPane()
+                                    .getSelectedProducts()
+                                    .getProductsSelected()
+                                    .isEmpty())
+                                {
+                                    CalculatedMeal readyMeal = new CalculatedMeal();
+                                    readyMeal
+                                        .setSummaryInfo(meal
+                                                            .getProductFrame()
+                                                            .getProductPanel()
+                                                            .getProductsTabbedPane()
+                                                            .getSelectedProducts()
+                                                            .getProductsSelected());
+                                    
+                                    tmpKcal += readyMeal.getKcal();
+                                    tmpProteins += readyMeal.getProteins();
+                                    tmpFats += readyMeal.getFats();
+                                    tmpCarbs += readyMeal.getCarbs();
+                                }
                             }
                         }
                     }

@@ -115,7 +115,6 @@ public class DetailsPanel extends JPanel
             
             c.gridx = 0;
             c.gridy++;
-            System.out.println(c.gridy);
             setComponents(c, products);
        }
        
@@ -179,12 +178,12 @@ public class DetailsPanel extends JPanel
             add(carbLabel, c);
             c.gridx = 0;
             c.gridy++;
- 
             setValues();
+            setComponents();
           
        }
        
-       public void setValues()
+       private void setValues()
        {
            CalculatedMeal meal = new CalculatedMeal();
            meal.setSummaryInfo(products);
@@ -193,7 +192,10 @@ public class DetailsPanel extends JPanel
            proteinsData = meal.getProteins();
            fatsData = meal.getFats();
            carbsData = meal.getCarbs();
-           
+       }
+       
+       private void setComponents()
+       {   
            add(new JLabel(String.valueOf(kcalData)), c);
            c.gridx++;
            add(new JLabel(String.valueOf(proteinsData)), c);

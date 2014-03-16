@@ -27,13 +27,15 @@ public class TabBody extends JPanel
     private TabBody tabBody;
     private ProductFrame productFrame;
     private DetailsFrame detailsFrame;
+    private final TabPanel PARENT;
 
   
     
-    public TabBody()
+    public TabBody(TabPanel parent)
     {
         super();
         tabBody = this;
+        PARENT = parent;
         setOpaque(false);
         setLayout(new GridBagLayout());
         c = new GridBagConstraints();
@@ -41,6 +43,7 @@ public class TabBody extends JPanel
         c.gridx = 0;
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
+        
         
         addButton = new JButton("Add products");
         addButton.addActionListener(new ActionListener() 
@@ -96,6 +99,7 @@ public class TabBody extends JPanel
             public void actionPerformed(ActionEvent e)
             {
                 Container tmpParent = tabBody.getParent();
+                PARENT.getMeals().remove(tabBody);
                 tmpParent.remove(tabBody);
                 tmpParent.repaint();
                 
